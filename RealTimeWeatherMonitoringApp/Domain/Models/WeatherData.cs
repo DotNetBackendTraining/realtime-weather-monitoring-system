@@ -14,5 +14,5 @@ public class WeatherData
     }
 
     public override string ToString() =>
-        $"WeatherData - Location: {Location}, Temperature: {Temperature}, Humidity: {Humidity}";
+        $"WeatherData[Location={Location}, Temperature={Temperature}, Humidity={Humidity}]";
 }
