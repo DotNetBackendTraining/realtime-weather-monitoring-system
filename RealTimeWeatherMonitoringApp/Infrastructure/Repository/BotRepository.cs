@@ -15,9 +15,11 @@ public class BotRepository : IBotRepository
         var jsonText = File.ReadAllText(fullPath);
 
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-        var bots = JsonSerializer.Deserialize<Dictionary<string, BotModel>>(jsonText, options);
+        var botDict = JsonSerializer.Deserialize<Dictionary<string, BotModel>>(jsonText, options);
+        if (botDict == null) return Enumerable.Empty<BotModel>();
 
-        return bots?.Values ?? Enumerable.Empty<BotModel>();
+        foreach (var kvp in botDict) kvp.Value.Name = kvp.Key;
+        return botDict.Values;
     });
 
     public IEnumerable<BotModel> GetAll() => BotModelCollection.Value;
