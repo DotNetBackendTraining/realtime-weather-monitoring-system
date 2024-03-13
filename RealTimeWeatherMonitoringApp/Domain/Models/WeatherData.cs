@@ -3,10 +3,10 @@ namespace RealTimeWeatherMonitoringApp.Domain.Models;
 public class WeatherData
 {
     public string Location { get; set; }
-    public float Temperature { get; set; }
-    public float Humidity { get; set; }
+    public double Temperature { get; set; }
+    public double Humidity { get; set; }
 
-    public WeatherData(string location, float temperature, float humidity)
+    public WeatherData(string location, double temperature, double humidity)
     {
         Location = location;
         Temperature = temperature;
