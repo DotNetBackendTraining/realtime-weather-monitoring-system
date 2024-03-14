@@ -1,7 +1,8 @@
 using System.Text.Json;
-using RealTimeWeatherMonitoringApp.Infrastructure.Interfaces;
+using RealTimeWeatherMonitoringApp.Infrastructure.Configuration;
+using RealTimeWeatherMonitoringApp.Infrastructure.Interfaces.Factory;
 
-namespace RealTimeWeatherMonitoringApp.Infrastructure.Configuration;
+namespace RealTimeWeatherMonitoringApp.Infrastructure.Factory;
 
 public class ConfigurationFactory : IConfigurationFactory
 {
