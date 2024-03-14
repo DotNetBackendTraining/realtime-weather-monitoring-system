@@ -4,4 +4,4 @@ public record BotConfiguration(
     string Name,
     bool Enabled,
     string Message,
-    IReadOnlyList<ConditionConfiguration> Conditions);
+    IEnumerable<ConditionConfiguration> Conditions);
