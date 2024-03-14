@@ -2,7 +2,7 @@ using RealTimeWeatherMonitoringApp.Domain.Models;
 
 namespace RealTimeWeatherMonitoringApp.Domain.Interfaces.Repository;
 
-public interface IBotRepository
+public interface IBotRepository<TEvaluated>
 {
-    IEnumerable<BotModel> GetAll();
+    IEnumerable<Bot<TEvaluated>> GetAll();
 }
