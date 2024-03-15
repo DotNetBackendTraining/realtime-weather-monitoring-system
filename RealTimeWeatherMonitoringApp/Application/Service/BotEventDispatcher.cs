@@ -2,7 +2,7 @@ using RealTimeWeatherMonitoringApp.Application.Interfaces;
 using RealTimeWeatherMonitoringApp.Domain.Common;
 using RealTimeWeatherMonitoringApp.Domain.Interfaces;
 
-namespace RealTimeWeatherMonitoringApp.Infrastructure.Service;
+namespace RealTimeWeatherMonitoringApp.Application.Service;
 
 public class BotEventDispatcher : IBotNotificationService, IBotPublishingService
 {
