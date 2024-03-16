@@ -4,6 +4,11 @@ using RealTimeWeatherMonitoringApp.Application.Interfaces.Service;
 
 namespace RealTimeWeatherMonitoringApp.Application.Service;
 
+/// <summary>
+/// A simple iterative approach,
+/// tries all strategies one by one until it finds a valid parsing strategy and returns the result.
+/// </summary>
+/// <typeparam name="TResult">Parsed data type</typeparam>
 public class AutoParsingService<TResult> : IAutoParsingService<TResult>
 {
     private readonly List<IParsingStrategy<TResult>> _strategies = [];
