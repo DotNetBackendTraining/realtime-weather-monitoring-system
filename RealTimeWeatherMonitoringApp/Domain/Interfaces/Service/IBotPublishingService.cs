@@ -1,6 +1,6 @@
 using RealTimeWeatherMonitoringApp.Domain.Common;
 
-namespace RealTimeWeatherMonitoringApp.Application.Interfaces.Service;
+namespace RealTimeWeatherMonitoringApp.Domain.Interfaces.Service;
 
 /// <summary>
 /// Responsible for handling published bot events

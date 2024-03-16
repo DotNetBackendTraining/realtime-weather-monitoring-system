@@ -1,5 +1,6 @@
 using RealTimeWeatherMonitoringApp.Application.Interfaces.Service;
 using RealTimeWeatherMonitoringApp.Domain.Common;
+using RealTimeWeatherMonitoringApp.Domain.Interfaces.Service;
 
 namespace RealTimeWeatherMonitoringApp.Application.Service;
 
