@@ -9,7 +9,7 @@ public class BotController<TEvaluated> : IBotController<TEvaluated>
     public BotController(Bot<TEvaluated> bot) => _bot = bot;
 
     public BotEventArgs? React(DataChangeEventArgs<TEvaluated> args) =>
-        args.NewData != null && IsTriggeredBy(args.NewData) ? new BotEventArgs(_bot.Message) : null;
+        args.NewData != null && IsTriggeredBy(args.NewData) ? new BotEventArgs(_bot.Name, _bot.Message) : null;
 
     private bool IsTriggeredBy(TEvaluated data) => _bot.Enabled && _bot.Evaluator.Evaluate(data);
 }

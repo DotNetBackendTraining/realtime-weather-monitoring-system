@@ -16,7 +16,8 @@ public class UserController
 
     public void Start()
     {
-        BotNotificationService.OnBotNotification += (_, args) => Console.WriteLine(args.Message);
+        BotNotificationService.OnBotNotification += (_, args) =>
+            Console.WriteLine($"\n{args.BotName}:  {args.Message}");
 
         while (true)
         {
