@@ -1,6 +1,6 @@
 using RealTimeWeatherMonitoringApp.Application.Common;
 
-namespace RealTimeWeatherMonitoringApp.Application.Interfaces.Core;
+namespace RealTimeWeatherMonitoringApp.Application.Interfaces.Service;
 
 /// <summary>
 /// Automatically selects and applies the appropriate parsing strategy

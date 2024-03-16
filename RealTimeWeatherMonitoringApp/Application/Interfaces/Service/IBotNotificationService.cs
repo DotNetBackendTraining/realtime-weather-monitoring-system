@@ -1,6 +1,6 @@
 using RealTimeWeatherMonitoringApp.Domain.Common;
 
-namespace RealTimeWeatherMonitoringApp.Application.Interfaces;
+namespace RealTimeWeatherMonitoringApp.Application.Interfaces.Service;
 
 public interface IBotNotificationService
 {

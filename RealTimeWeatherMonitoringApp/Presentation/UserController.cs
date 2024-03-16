@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
-using RealTimeWeatherMonitoringApp.Application.Interfaces;
+using RealTimeWeatherMonitoringApp.Application.Interfaces.Service;
+using RealTimeWeatherMonitoringApp.Domain.Models;
 
 namespace RealTimeWeatherMonitoringApp.Presentation;
 
@@ -8,8 +9,10 @@ public class UserController
     private readonly IServiceProvider _provider;
     public UserController(IServiceProvider provider) => _provider = provider;
 
-    private IWeatherDataProcessor WeatherDataProcessor => _provider.GetRequiredService<IWeatherDataProcessor>();
     private IBotNotificationService BotNotificationService => _provider.GetRequiredService<IBotNotificationService>();
+
+    private IDataProcessingService<WeatherData> WeatherDataProcessor =>
+        _provider.GetRequiredService<IDataProcessingService<WeatherData>>();
 
     public void Start()
     {

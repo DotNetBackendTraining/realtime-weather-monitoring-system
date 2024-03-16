@@ -1,4 +1,4 @@
-namespace RealTimeWeatherMonitoringApp.Application.Interfaces.Core;
+namespace RealTimeWeatherMonitoringApp.Application.Interfaces;
 
 /// <summary>
 /// Defines a strategy for parsing a string into an instance of type <typeparamref name="TResult"/>.
