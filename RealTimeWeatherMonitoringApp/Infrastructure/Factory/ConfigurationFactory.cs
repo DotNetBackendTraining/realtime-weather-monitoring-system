@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using RealTimeWeatherMonitoringApp.Infrastructure.Configuration;
 using RealTimeWeatherMonitoringApp.Infrastructure.Interfaces.Factory;
 
@@ -14,7 +15,11 @@ public class ConfigurationFactory : IConfigurationFactory
         var fullPath = Path.Combine(baseDirectory, ConfigurationFilePath);
         var jsonText = File.ReadAllText(fullPath);
 
-        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
+        };
         var botDict = JsonSerializer.Deserialize<Dictionary<string, BotConfiguration>>(jsonText, options);
         if (botDict == null) return Enumerable.Empty<BotConfiguration>();
 

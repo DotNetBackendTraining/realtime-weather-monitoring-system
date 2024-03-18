@@ -1,6 +1,8 @@
+using RealTimeWeatherMonitoringApp.Infrastructure.Configuration.Condition;
+
 namespace RealTimeWeatherMonitoringApp.Infrastructure.Configuration;
 
 public record ConditionConfiguration(
-    string Type,
-    string Operator,
+    ConditionType ConditionType,
+    ConditionOperator Operator,
     double Value);
