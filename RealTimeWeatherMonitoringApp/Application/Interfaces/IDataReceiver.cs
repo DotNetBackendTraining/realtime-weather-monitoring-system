@@ -6,5 +6,5 @@ namespace RealTimeWeatherMonitoringApp.Application.Interfaces;
 /// <typeparam name="TReceived">The received data type.</typeparam>
 public interface IDataReceiver<in TReceived>
 {
-    void Receive(TReceived data);
+    void Receive(TReceived? data);
 }

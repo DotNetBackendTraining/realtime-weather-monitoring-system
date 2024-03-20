@@ -18,8 +18,7 @@ public class DataProcessingService<TData> : IDataProcessingService<TData>
     public ParsingResult<TData> Process(string input)
     {
         var result = _autoParsingService.AutoParse(input);
-        if (result is { Success: true, Data: not null })
-            _receiver.Receive(result.Data);
+        if (result.Success) _receiver.Receive(result.Data);
         return result;
     }
 }

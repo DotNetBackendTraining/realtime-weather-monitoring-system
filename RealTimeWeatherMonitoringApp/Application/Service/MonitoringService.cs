@@ -9,7 +9,7 @@ namespace RealTimeWeatherMonitoringApp.Application.Service;
 /// <typeparam name="TData">Monitored data type</typeparam>
 public class MonitoringService<TData> : IDataReceiver<TData>, IDataChangeNotifier<TData>
 {
-    public void Receive(TData data) =>
+    public void Receive(TData? data) =>
         OnDataChange?.Invoke(this, new DataChangeEventArgs<TData>(data));
 
     public event EventHandler<DataChangeEventArgs<TData>>? OnDataChange;
