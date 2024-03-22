@@ -13,7 +13,6 @@ public class AutoParsingService<TResult> : IAutoParsingService<TResult>
 {
     private readonly List<IParsingStrategy<TResult>> _strategies = [];
     public void AddStrategy(IParsingStrategy<TResult> strategy) => _strategies.Add(strategy);
-    public void RemoveStrategy(IParsingStrategy<TResult> strategy) => _strategies.Remove(strategy);
 
     public ParsingResult<TResult> AutoParse(string input)
     {
