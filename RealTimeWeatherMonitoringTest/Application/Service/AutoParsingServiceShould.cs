@@ -2,6 +2,7 @@ using FluentAssertions;
 using Moq;
 using RealTimeWeatherMonitoringApp.Application.Interfaces;
 using RealTimeWeatherMonitoringApp.Application.Service;
+using RealTimeWeatherMonitoringTest.Common;
 using RealTimeWeatherMonitoringTest.Domain.Models;
 using Xunit;
 
@@ -9,60 +10,56 @@ namespace RealTimeWeatherMonitoringTest.Application.Service;
 
 public class AutoParsingServiceShould
 {
-    private readonly AutoParsingService<TestData> _autoParsingService;
-
-    private readonly List<Mock<IParsingStrategy<TestData>>> _mockStrategies =
-    [
-        new Mock<IParsingStrategy<TestData>>(),
-        new Mock<IParsingStrategy<TestData>>()
-    ];
-
-    private readonly List<string> _inputs =
-    [
-        "{ 'text': 'This can be parsed only by Strategy1' }",
-        "<text>This can be parsed only by Strategy2</text>"
-    ];
-
-    private const string InvalidInput = "This cannot be parsed by anything";
-
-    private TestData? _tryParseResult;
-
-    public AutoParsingServiceShould()
+    [Theory, AutoMoqData]
+    public void AutoParse_NoParsingStrategyWorks_ReturnFailResult(
+        string input,
+        List<Mock<IParsingStrategy<TestData>>> strategyMocks,
+        AutoParsingService<TestData> autoParsingService)
     {
-        _autoParsingService = new AutoParsingService<TestData>();
-        _mockStrategies.ForEach(s => _autoParsingService.AddStrategy(s.Object));
+        foreach (var mock in strategyMocks)
+            autoParsingService.AddStrategy(mock.Object);
 
-        for (var i = 0; i < _mockStrategies.Count; i++)
-        {
-            var i1 = i;
-            _mockStrategies[i]
-                .Setup(s => s.TryParse(_inputs[i1], out _tryParseResult))
-                .Returns(true);
-        }
-    }
+        var result = autoParsingService.AutoParse(input);
 
-    [Theory]
-    [InlineData(0)]
-    [InlineData(1)]
-    public void AutoParse_UsesFirstSuccessfulStrategy(int inputsIndex)
-    {
-        var result = _autoParsingService.AutoParse(_inputs[inputsIndex]);
-        result.Should().NotBeNull();
-        result.Success.Should().BeTrue();
-
-        _mockStrategies[inputsIndex].Verify(s => s.TryParse(_inputs[inputsIndex], out _tryParseResult), Times.Once);
-        _mockStrategies[inputsIndex].VerifyNoOtherCalls();
-    }
-
-    [Fact]
-    public void AutoParse_ReturnsFailureWhenNoStrategiesSucceed()
-    {
-        var result = _autoParsingService.AutoParse(InvalidInput);
         result.Should().NotBeNull();
         result.Success.Should().BeFalse();
+        result.Data.Should().BeNull();
+    }
 
-        _mockStrategies.ForEach(strategy =>
-            strategy.Verify(s =>
-                s.TryParse(It.IsAny<string>(), out _tryParseResult), Times.Once));
+    [Theory, AutoMoqData]
+    public void AutoParse_AStrategyWorks_ReturnSuccessResult(
+        string input,
+        TestData? resultData,
+        Mock<IParsingStrategy<TestData>> strategyMock,
+        AutoParsingService<TestData> autoParsingService)
+    {
+        autoParsingService.AddStrategy(strategyMock.Object);
+        strategyMock.Setup(s => s.TryParse(input, out resultData)).Returns(true);
+
+        var result = autoParsingService.AutoParse(input);
+
+        result.Should().NotBeNull();
+        result.Success.Should().BeTrue();
+        result.Data.Should().BeSameAs(resultData);
+    }
+
+    [Theory, AutoMoqData]
+    public void AutoParse_MultipleStrategiesWork_UseFirstOne(
+        string input,
+        Mock<IParsingStrategy<TestData>> firstStrategyMock,
+        Mock<IParsingStrategy<TestData>> secondStrategyMock,
+        AutoParsingService<TestData> autoParsingService)
+    {
+        autoParsingService.AddStrategy(firstStrategyMock.Object);
+        autoParsingService.AddStrategy(secondStrategyMock.Object);
+
+        TestData? dummy = null;
+        firstStrategyMock.Setup(s => s.TryParse(input, out dummy)).Returns(true);
+        secondStrategyMock.Setup(s => s.TryParse(input, out dummy)).Returns(true);
+
+        autoParsingService.AutoParse(input);
+
+        firstStrategyMock.Verify(s => s.TryParse(input, out dummy), Times.Once);
+        secondStrategyMock.Verify(s => s.TryParse(input, out dummy), Times.Never);
     }
 }
