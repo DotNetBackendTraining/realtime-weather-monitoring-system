@@ -11,6 +11,7 @@ using RealTimeWeatherMonitoringApp.Infrastructure.Interfaces;
 using RealTimeWeatherMonitoringApp.Infrastructure.Interfaces.Factory;
 using RealTimeWeatherMonitoringApp.Infrastructure.Repository;
 using RealTimeWeatherMonitoringApp.Infrastructure.Service;
+using RealTimeWeatherMonitoringApp.Presentation.Controller;
 
 namespace RealTimeWeatherMonitoringApp.Presentation.Utility;
 
@@ -72,5 +73,6 @@ public static class DependencyInjector
     private static void InjectPresentation(IServiceCollection services)
     {
         services.AddSingleton<UserController>();
+        services.AddSingleton<ServerController>();
     }
 }
