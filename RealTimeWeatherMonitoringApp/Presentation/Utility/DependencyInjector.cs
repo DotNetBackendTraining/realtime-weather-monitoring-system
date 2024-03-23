@@ -9,11 +9,10 @@ using RealTimeWeatherMonitoringApp.Domain.Service;
 using RealTimeWeatherMonitoringApp.Infrastructure.Factory;
 using RealTimeWeatherMonitoringApp.Infrastructure.Interfaces;
 using RealTimeWeatherMonitoringApp.Infrastructure.Interfaces.Factory;
-using RealTimeWeatherMonitoringApp.Infrastructure.Parsers;
 using RealTimeWeatherMonitoringApp.Infrastructure.Repository;
 using RealTimeWeatherMonitoringApp.Infrastructure.Service;
 
-namespace RealTimeWeatherMonitoringApp.Presentation;
+namespace RealTimeWeatherMonitoringApp.Presentation.Utility;
 
 public static class DependencyInjector
 {
@@ -40,13 +39,18 @@ public static class DependencyInjector
         services.AddSingleton<IBotControllerService<WeatherData>, BotControllerService<WeatherData>>();
     }
 
+
     private static void InjectApplication(IServiceCollection services)
     {
         services.AddSingleton<IAutoParsingService<WeatherData>>(_ =>
         {
             var service = new AutoParsingService<WeatherData>();
-            service.AddStrategy(new WeatherDataJsonParser());
-            service.AddStrategy(new WeatherDataXmlParser());
+            foreach (var parserType in Configuration.GetAllTypes(Configuration.ParsersNamespace))
+            {
+                if (Activator.CreateInstance(parserType) is IParsingStrategy<WeatherData> parser)
+                    service.AddStrategy(parser);
+            }
+
             return service;
         });
 
