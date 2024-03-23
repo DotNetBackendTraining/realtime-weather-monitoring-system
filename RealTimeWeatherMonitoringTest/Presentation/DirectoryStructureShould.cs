@@ -14,7 +14,7 @@ public class DirectoryStructureShould
         foreach (var type in GetImplementationsOfGenericInterface(typeof(IParsingStrategy<>)))
         {
             type.Namespace.Should().NotBeNull()
-                .And.StartWith(Configuration.ParsersNamespace,
+                .And.StartWith(DirectoryStructureUtility.ParsersNamespace,
                     "because all IParsingStrategy implementations should reside in the Parsers directory");
         }
     }

@@ -47,7 +47,7 @@ public static class DependencyInjector
         services.AddSingleton<IAutoParsingService<WeatherData>>(_ =>
         {
             var service = new AutoParsingService<WeatherData>();
-            foreach (var parserType in Configuration.GetAllTypes(Configuration.ParsersNamespace))
+            foreach (var parserType in DirectoryStructureUtility.GetAllTypes(DirectoryStructureUtility.ParsersNamespace))
             {
                 if (Activator.CreateInstance(parserType) is IParsingStrategy<WeatherData> parser)
                     service.AddStrategy(parser);

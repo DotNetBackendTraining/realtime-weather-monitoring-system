@@ -2,7 +2,7 @@ using System.Reflection;
 
 namespace RealTimeWeatherMonitoringApp.Presentation.Utility;
 
-public static class Configuration
+public static class DirectoryStructureUtility
 {
     /// <summary>
     /// Where all implementations of IParsingStrategy should reside.
