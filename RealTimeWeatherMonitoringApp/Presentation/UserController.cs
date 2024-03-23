@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using RealTimeWeatherMonitoringApp.Application.Interfaces.Service;
 using RealTimeWeatherMonitoringApp.Domain.Models;
 
@@ -6,17 +5,20 @@ namespace RealTimeWeatherMonitoringApp.Presentation;
 
 public class UserController
 {
-    private readonly IServiceProvider _provider;
-    public UserController(IServiceProvider provider) => _provider = provider;
+    private readonly IBotNotificationService _botNotificationService;
+    private readonly IDataProcessingService<WeatherData> _weatherDataProcessor;
 
-    private IBotNotificationService BotNotificationService => _provider.GetRequiredService<IBotNotificationService>();
-
-    private IDataProcessingService<WeatherData> WeatherDataProcessor =>
-        _provider.GetRequiredService<IDataProcessingService<WeatherData>>();
+    public UserController(
+        IBotNotificationService botNotificationService,
+        IDataProcessingService<WeatherData> weatherDataProcessor)
+    {
+        _botNotificationService = botNotificationService;
+        _weatherDataProcessor = weatherDataProcessor;
+    }
 
     public void Start()
     {
-        BotNotificationService.OnBotNotification += (_, args) =>
+        _botNotificationService.OnBotNotification += (_, args) =>
             Console.WriteLine($"\n{args.BotName}:  {args.Message}");
 
         while (true)
@@ -26,7 +28,7 @@ public class UserController
             var input = Console.ReadLine() ?? string.Empty;
             if (input.Equals("q", StringComparison.CurrentCultureIgnoreCase)) break;
 
-            var result = WeatherDataProcessor.Process(input);
+            var result = _weatherDataProcessor.Process(input);
             if (result.Fail) Console.WriteLine(result.Message);
         }
     }

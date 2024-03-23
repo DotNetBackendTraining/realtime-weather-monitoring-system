@@ -16,4 +16,4 @@ var weatherEventManager = provider.GetRequiredService<IBotEventManager<WeatherDa
 weatherEventManager.Attach(weatherDataNotifier, weatherBotPublisher);
 
 // Start
-new UserController(provider).Start();
+provider.GetRequiredService<UserController>().Start();

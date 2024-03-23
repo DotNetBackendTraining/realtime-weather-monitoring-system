@@ -22,6 +22,7 @@ public static class DependencyInjector
         InjectInfrastructure(services);
         InjectDomain(services);
         InjectApplication(services);
+        InjectPresentation(services);
         return services.BuildServiceProvider();
     }
 
@@ -66,5 +67,10 @@ public static class DependencyInjector
 
         services.AddSingleton<IBotEventManager<WeatherData>, BotEventManager<WeatherData>>();
         services.AddSingleton<IDataProcessingService<WeatherData>, DataProcessingService<WeatherData>>();
+    }
+
+    private static void InjectPresentation(IServiceCollection services)
+    {
+        services.AddSingleton<UserController>();
     }
 }
