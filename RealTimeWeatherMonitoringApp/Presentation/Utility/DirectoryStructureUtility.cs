@@ -10,6 +10,11 @@ public static class DirectoryStructureUtility
     public const string ParsersNamespace = "RealTimeWeatherMonitoringApp.Infrastructure.Parsers";
 
     /// <summary>
+    /// Where configuration json file resides.
+    /// </summary>
+    public const string ConfigurationFilepath = "Infrastructure/Configuration/configuration.json";
+
+    /// <summary>
     /// Retrieves all types within a specified namespace.
     /// </summary>
     /// <param name="namespace">The namespace to search for types.</param>

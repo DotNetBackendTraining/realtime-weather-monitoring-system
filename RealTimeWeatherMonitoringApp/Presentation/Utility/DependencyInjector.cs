@@ -29,7 +29,8 @@ public static class DependencyInjector
 
     private static void InjectInfrastructure(IServiceCollection services)
     {
-        services.AddSingleton<IConfigurationFactory, ConfigurationFactory>();
+        services.AddSingleton<IConfigurationFactory, ConfigurationFactory>(_ =>
+            new ConfigurationFactory(DirectoryStructureUtility.ConfigurationFilepath));
         services.AddSingleton<IEvaluatorFactory<WeatherData>, WeatherEvaluatorFactory>();
         services.AddSingleton<IBotFactory<WeatherData>, BotFactory<WeatherData>>();
         services.AddSingleton<IBotInitializer<WeatherData>, BotInitializer<WeatherData>>();
@@ -47,7 +48,8 @@ public static class DependencyInjector
         services.AddSingleton<IAutoParsingService<WeatherData>>(_ =>
         {
             var service = new AutoParsingService<WeatherData>();
-            foreach (var parserType in DirectoryStructureUtility.GetAllTypes(DirectoryStructureUtility.ParsersNamespace))
+            foreach (var parserType in
+                     DirectoryStructureUtility.GetAllTypes(DirectoryStructureUtility.ParsersNamespace))
             {
                 if (Activator.CreateInstance(parserType) is IParsingStrategy<WeatherData> parser)
                     service.AddStrategy(parser);
