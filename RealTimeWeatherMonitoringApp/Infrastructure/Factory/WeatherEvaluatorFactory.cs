@@ -13,11 +13,11 @@ public class WeatherEvaluatorFactory : IEvaluatorFactory<WeatherData>
     {
         var value = config.Value;
         var comparison = GetComparisonOperator(config.Operator);
-        return config.ConditionType switch
+        return config.Type switch
         {
             ConditionType.Temperature => new WeatherTemperatureEvaluator(value, comparison),
             ConditionType.Humidity => new WeatherHumidityEvaluator(value, comparison),
-            _ => throw new ArgumentException($"Unsupported weather condition type: {config.ConditionType}")
+            _ => throw new ArgumentException($"Unsupported weather condition type: {config.Type}")
         };
     }
 
