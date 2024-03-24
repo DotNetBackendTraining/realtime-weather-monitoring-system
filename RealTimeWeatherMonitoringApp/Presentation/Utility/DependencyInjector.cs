@@ -29,8 +29,13 @@ public static class DependencyInjector
 
     private static void InjectInfrastructure(IServiceCollection services)
     {
-        services.AddSingleton<IConfigurationFactory, ConfigurationFactory>(_ =>
-            new ConfigurationFactory(DirectoryStructureUtility.ConfigurationFilepath));
+        services.AddSingleton<IFileReader>(_ => new RelativeFileReader(new FileReader()));
+        services.AddSingleton<IConfigurationFactory, ConfigurationFactory>(p =>
+        {
+            var fileReader = p.GetRequiredService<IFileReader>();
+            return new ConfigurationFactory(DirectoryStructureUtility.ConfigurationFilepath, fileReader);
+        });
+
         services.AddSingleton<IEvaluatorFactory<WeatherData>, WeatherEvaluatorFactory>();
         services.AddSingleton<IBotFactory<WeatherData>, BotFactory<WeatherData>>();
         services.AddSingleton<IBotInitializer<WeatherData>, BotInitializer<WeatherData>>();

@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using RealTimeWeatherMonitoringApp.Infrastructure.Configuration;
+using RealTimeWeatherMonitoringApp.Infrastructure.Interfaces;
 using RealTimeWeatherMonitoringApp.Infrastructure.Interfaces.Factory;
 
 namespace RealTimeWeatherMonitoringApp.Infrastructure.Factory;
@@ -15,14 +16,11 @@ public class ConfigurationFactory : IConfigurationFactory
 
     private readonly Lazy<IEnumerable<BotConfiguration>> _botConfigurations;
 
-    public ConfigurationFactory(string configurationFilepath)
+    public ConfigurationFactory(string configurationFilepath, IFileReader fileReader)
     {
         _botConfigurations = new Lazy<IEnumerable<BotConfiguration>>(() =>
         {
-            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            var fullPath = Path.Combine(baseDirectory, configurationFilepath);
-            var jsonText = File.ReadAllText(fullPath);
-
+            var jsonText = fileReader.ReadAllText(configurationFilepath);
             var botDict = JsonSerializer.Deserialize<Dictionary<string, BotConfiguration>>(jsonText, JsonOptions.Value);
             return botDict == null
                 ? Enumerable.Empty<BotConfiguration>()
