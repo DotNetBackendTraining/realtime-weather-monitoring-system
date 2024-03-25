@@ -4,6 +4,10 @@ using RealTimeWeatherMonitoringApp.Domain.Interfaces;
 
 namespace RealTimeWeatherMonitoringTest.Domain.Common;
 
+/// <summary>
+/// Ensures that generated evaluators always return fixed values (true/false).
+/// Useful for testing evaluation logic for a bot.
+/// </summary>
 public class FixedEvaluatorCustomization<TEvaluated> : ICustomization
 {
     private readonly bool _returnValue;

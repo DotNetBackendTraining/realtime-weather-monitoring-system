@@ -3,8 +3,8 @@ using AutoFixture;
 namespace RealTimeWeatherMonitoringTest.Domain.Common;
 
 /// <summary>
-/// This customization ensures that generated BotControllers will always
-/// react DataChangeEventArgs (Except when data is null).
+/// Ensures that generated BotControllers will always
+/// react to DataChangeEventArgs (Except when data is null).
 /// </summary>
 public class ReactiveBotControllerCustomization<TEvaluated> : ICustomization
 {

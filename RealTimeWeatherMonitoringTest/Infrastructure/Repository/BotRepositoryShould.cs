@@ -18,7 +18,9 @@ public class BotRepositoryShould
         [Frozen] Mock<IBotInitializer<TestData>> botInitializerMock,
         BotRepository<TestData> botRepository)
     {
-        botInitializerMock.Setup(i => i.InitializeAndGetAllBots()).Returns(initializedBots);
+        botInitializerMock
+            .Setup(i => i.InitializeAndGetAllBots())
+            .Returns(initializedBots);
 
         var bots = botRepository.GetAll();
 

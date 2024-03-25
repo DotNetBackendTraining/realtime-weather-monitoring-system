@@ -1,5 +1,10 @@
+using RealTimeWeatherMonitoringApp.Domain.Models;
+
 namespace RealTimeWeatherMonitoringTest.Domain.Models;
 
+/// <summary>
+/// Analogous to <see cref="WeatherData"/>
+/// </summary>
 public class TestData
 {
     public int Field1 { get; }
