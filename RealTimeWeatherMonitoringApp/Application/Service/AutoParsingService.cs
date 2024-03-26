@@ -23,4 +23,7 @@ public class AutoParsingService<TResult> : IAutoParsingService<TResult>
 
         return new ParsingResult<TResult>(false, $"No valid parsing strategy was found for input '{input}'");
     }
+
+    public async Task<ParsingResult<TResult>> AutoParseAsync(string input) =>
+        await Task.Run(() => AutoParse(input));
 }

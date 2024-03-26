@@ -15,4 +15,9 @@ public interface IDataProcessingService<TData>
     /// <returns>A <see cref="ParsingResult{TData}"/> object that encapsulates the result of the parsing operation,
     /// indicating success or failure, and containing the parsed <see cref="TData"/> if successful.</returns>
     ParsingResult<TData> Process(string input);
+
+    /// <summary>
+    /// Asynchronous version of <see cref="Process"/>
+    /// </summary>
+    Task<ParsingResult<TData>> ProcessAsync(string input);
 }

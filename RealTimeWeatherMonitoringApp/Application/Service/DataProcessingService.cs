@@ -21,4 +21,12 @@ public class DataProcessingService<TData> : IDataProcessingService<TData>
         if (result.Success) _receiver.Receive(result.Data);
         return result;
     }
+
+    public async Task<ParsingResult<TData>> ProcessAsync(string input)
+    {
+        var result = await _autoParsingService.AutoParseAsync(input);
+        if (result.Success)
+            await _receiver.ReceiveAsync(result.Data);
+        return result;
+    }
 }

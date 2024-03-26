@@ -12,5 +12,7 @@ public class MonitoringService<TData> : IDataReceiver<TData>, IDataChangeNotifie
     public void Receive(TData? data) =>
         OnDataChange?.Invoke(this, new DataChangeEventArgs<TData>(data));
 
+    public async Task ReceiveAsync(TData? data) => await Task.Run(() => Receive(data));
+
     public event EventHandler<DataChangeEventArgs<TData>>? OnDataChange;
 }

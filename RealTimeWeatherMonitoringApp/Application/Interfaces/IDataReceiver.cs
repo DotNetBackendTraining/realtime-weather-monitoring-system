@@ -7,4 +7,6 @@ namespace RealTimeWeatherMonitoringApp.Application.Interfaces;
 public interface IDataReceiver<in TReceived>
 {
     void Receive(TReceived? data);
+
+    Task ReceiveAsync(TReceived? data);
 }

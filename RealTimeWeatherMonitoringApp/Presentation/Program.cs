@@ -7,4 +7,4 @@ var provider = DependencyInjector.CreateServiceProvider();
 
 // Start
 provider.GetRequiredService<ServerController>().Start();
-provider.GetRequiredService<UserController>().Start();
+await provider.GetRequiredService<UserController>().Start();

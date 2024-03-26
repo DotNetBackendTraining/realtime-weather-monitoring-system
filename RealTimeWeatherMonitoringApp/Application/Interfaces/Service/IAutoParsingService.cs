@@ -19,4 +19,9 @@ public interface IAutoParsingService<TResult>
     /// <returns>A <see cref="ParsingResult{TResult}"/> object that encapsulates the result of the parsing operation,
     /// indicating success or failure, and containing the parsed <typeparamref name="TResult"/> if successful.</returns>
     ParsingResult<TResult> AutoParse(string input);
+
+    /// <summary>
+    /// Asynchronous version of <see cref="AutoParse"/>
+    /// </summary>
+    Task<ParsingResult<TResult>> AutoParseAsync(string input);
 }

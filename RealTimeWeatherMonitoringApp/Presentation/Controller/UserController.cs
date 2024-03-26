@@ -16,7 +16,7 @@ public class UserController
         _weatherDataProcessor = weatherDataProcessor;
     }
 
-    public void Start()
+    public async Task Start()
     {
         _botNotificationService.OnBotNotification += (_, args) =>
             Console.WriteLine($"\n{args.BotName}:  {args.Message}");
@@ -34,7 +34,7 @@ public class UserController
             var input = Console.ReadLine() ?? string.Empty;
             if (input.Equals("q", StringComparison.CurrentCultureIgnoreCase)) break;
 
-            var result = _weatherDataProcessor.Process(input);
+            var result = await _weatherDataProcessor.ProcessAsync(input);
             if (result.Fail) Console.WriteLine(result.Message);
         }
     }
