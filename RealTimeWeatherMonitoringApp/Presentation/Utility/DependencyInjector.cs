@@ -79,7 +79,7 @@ public static class DependencyInjector
 
     private static void InjectPresentation(IServiceCollection services)
     {
-        services.AddSingleton<UserController>();
-        services.AddSingleton<ServerController>();
+        services.AddSingleton<UserInterfaceController>();
+        services.AddSingleton<ServerInterfaceController>();
     }
 }

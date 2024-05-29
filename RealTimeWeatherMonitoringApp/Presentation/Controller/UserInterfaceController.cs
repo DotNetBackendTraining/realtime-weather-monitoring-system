@@ -3,12 +3,12 @@ using RealTimeWeatherMonitoringApp.Domain.Models;
 
 namespace RealTimeWeatherMonitoringApp.Presentation.Controller;
 
-public class UserController
+public class UserInterfaceController
 {
     private readonly IBotNotificationService _botNotificationService;
     private readonly IDataProcessingService<WeatherData> _weatherDataProcessor;
 
-    public UserController(
+    public UserInterfaceController(
         IBotNotificationService botNotificationService,
         IDataProcessingService<WeatherData> weatherDataProcessor)
     {

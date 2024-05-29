@@ -6,5 +6,5 @@ using RealTimeWeatherMonitoringApp.Presentation.Utility;
 var provider = DependencyInjector.CreateServiceProvider();
 
 // Start
-provider.GetRequiredService<ServerController>().Start();
-await provider.GetRequiredService<UserController>().Start();
+provider.GetRequiredService<ServerInterfaceController>().Start();
+await provider.GetRequiredService<UserInterfaceController>().Start();

@@ -5,13 +5,13 @@ using RealTimeWeatherMonitoringApp.Domain.Models;
 
 namespace RealTimeWeatherMonitoringApp.Presentation.Controller;
 
-public class ServerController
+public class ServerInterfaceController
 {
     private readonly IDataChangeNotifier<WeatherData> _weatherDataNotifier;
     private readonly IBotPublishingService _botPublishingService;
     private readonly IBotEventManager<WeatherData> _weatherDataBotEventManager;
 
-    public ServerController(
+    public ServerInterfaceController(
         IDataChangeNotifier<WeatherData> weatherDataNotifier,
         IBotPublishingService botPublishingService,
         IBotEventManager<WeatherData> weatherDataBotEventManager)
