@@ -2,6 +2,12 @@
 
 [![.NET](https://github.com/izzat5233/realtime-weather-monitoring-system/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/izzat5233/realtime-weather-monitoring-system/actions/workflows/build-and-test.yml)
 
+## **Architecture**
+
+![ComponentDiagram](RealTimeWeatherMonitoringApp/designs/Excalidraw-ComponentDiagram.png)
+
+Explore it interactively [here](https://excalidraw.com/#json=CVKpuN2xIuhagiU4Zzap5,54ASRDZiKyOArV1QHFei5A).
+
 ## **General Task Description**
 
 Design and implement a C# console application that simulates a real-time weather monitoring and reporting service. The system should be capable of receiving and processing raw weather data in multiple formats (JSON, XML, etc.) from various weather stations for different locations. The application should include different types of 'weather bots' each of which is configured to behave differently based on the weather updates it receives.
